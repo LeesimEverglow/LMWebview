@@ -15,6 +15,7 @@
 		0BC6C8B220E13F580004604B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BC6C8B120E13F580004604B /* main.m */; };
 		0BC6C8BC20E13F580004604B /* LMWebviewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BC6C8BB20E13F580004604B /* LMWebviewTests.m */; };
 		0BC6C8C720E13F580004604B /* LMWebviewUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BC6C8C620E13F580004604B /* LMWebviewUITests.m */; };
+		0BC6C8D620E1413A0004604B /* LMWebviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BC6C8D520E1413A0004604B /* LMWebviewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,8 @@
 		0BC6C8C220E13F580004604B /* LMWebviewUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LMWebviewUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BC6C8C620E13F580004604B /* LMWebviewUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LMWebviewUITests.m; sourceTree = "<group>"; };
 		0BC6C8C820E13F580004604B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0BC6C8D420E1413A0004604B /* LMWebviewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LMWebviewController.h; sourceTree = "<group>"; };
+		0BC6C8D520E1413A0004604B /* LMWebviewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LMWebviewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +108,8 @@
 				0BC6C8A320E13F570004604B /* AppDelegate.m */,
 				0BC6C8A520E13F570004604B /* ViewController.h */,
 				0BC6C8A620E13F570004604B /* ViewController.m */,
+				0BC6C8D420E1413A0004604B /* LMWebviewController.h */,
+				0BC6C8D520E1413A0004604B /* LMWebviewController.m */,
 				0BC6C8A820E13F570004604B /* Main.storyboard */,
 				0BC6C8AB20E13F580004604B /* Assets.xcassets */,
 				0BC6C8AD20E13F580004604B /* LaunchScreen.storyboard */,
@@ -264,6 +269,7 @@
 			files = (
 				0BC6C8A720E13F570004604B /* ViewController.m in Sources */,
 				0BC6C8B220E13F580004604B /* main.m in Sources */,
+				0BC6C8D620E1413A0004604B /* LMWebviewController.m in Sources */,
 				0BC6C8A420E13F570004604B /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -436,6 +442,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = M953KLT6PD;
 				INFOPLIST_FILE = LMWebview/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -453,6 +460,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = M953KLT6PD;
 				INFOPLIST_FILE = LMWebview/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
