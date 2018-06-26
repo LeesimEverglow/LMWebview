@@ -12,7 +12,6 @@
 #define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
 #define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
 #define NAV_HEIGHT (([[UIApplication sharedApplication] statusBarFrame].size.height)+44.0f)
-
 #define LMRGBAColor(r, g, b, a) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:a]
 
 @interface LMWebviewController ()<WKNavigationDelegate,WKUIDelegate,UIGestureRecognizerDelegate>
@@ -23,9 +22,8 @@
 @property (nonatomic,strong) UIBarButtonItem* refreshBarItem;
 @property (nonatomic,strong) UIView * progressGetView;
 @property (nonatomic,strong) UIView * errorShowView;
-//为了
+//为了修复侧滑手势在webview上响应
 @property (nonatomic,assign) id delegate;
-
 //注入方法名 用于接受JS调用原生方法 让Web端掉用iOS端代码
 @property (nonatomic,strong) WKWebViewConfiguration *webConfig;
 
@@ -55,7 +53,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
-    
     
     [self.view addSubview:self.webview];
     [self.refreshBarItem class];
@@ -121,6 +118,7 @@
     }
 }
 
+//两个手势代理是为了让界面响应侧滑手势
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
     return self.navigationController.viewControllers.count > 1;
 }
@@ -140,10 +138,9 @@
 
 //更新左侧按钮
 -(void)updateNavigationItems{
+    self.errorShowView.hidden = YES;
     if (self.webview.canGoBack) {
-        
         [self.navigationItem setLeftBarButtonItems:@[self.customBackBarItem,self.closeButtonItem] animated:NO];
-        
     }else{
         self.navigationController.interactivePopGestureRecognizer.enabled = YES;
         [self.navigationItem setLeftBarButtonItems:@[self.customBackBarItem]];

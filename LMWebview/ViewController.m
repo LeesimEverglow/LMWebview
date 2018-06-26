@@ -34,10 +34,10 @@
 -(UIButton *)pushButton{
     if (!_pushButton) {
         _pushButton = [[UIButton alloc]init];
-        _pushButton.frame =CGRectMake(0, 0, 200, 100);
+        _pushButton.frame =CGRectMake(0, 0, 300, 100);
         _pushButton.backgroundColor = [UIColor blackColor];
         _pushButton.center = self.view.center;
-        [_pushButton setTitle:@"进入LMWebView" forState:UIControlStateNormal];
+        [_pushButton setTitle:@"进入LMWebViewController" forState:UIControlStateNormal];
         _pushButton.titleLabel.font = [UIFont systemFontOfSize:16];
 
         [_pushButton addTarget:self action:@selector(pushAction:) forControlEvents:UIControlEventTouchUpInside];
