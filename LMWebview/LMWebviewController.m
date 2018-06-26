@@ -20,8 +20,9 @@
 @property (nonatomic,strong) WKWebView * webview;
 @property (nonatomic,strong) UIBarButtonItem * customBackBarItem;
 @property (nonatomic,strong) UIBarButtonItem * closeButtonItem;
-@property (nonatomic,strong)UIBarButtonItem* refreshBarItem;
+@property (nonatomic,strong) UIBarButtonItem* refreshBarItem;
 @property (nonatomic,strong) UIView * progressGetView;
+@property (nonatomic,strong) UIView * errorShowView;
 //为了
 @property (nonatomic,assign) id delegate;
 
@@ -59,7 +60,7 @@
     [self.view addSubview:self.webview];
     [self.refreshBarItem class];
     [self.view addSubview:self.progressGetView];
-    
+    [self.view addSubview:self.errorShowView];
     
     //更新左侧按钮
     [self updateNavigationItems];
@@ -80,6 +81,16 @@
 {
     //判断左侧按钮状态
     [self updateNavigationItems];
+}
+
+// 页面加载失败时调用 开始加载后失败
+- (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(null_unspecified WKNavigation *)navigation withError:(NSError *)error
+{
+    
+    self.title = @"加载失败";
+    //加载失败时
+    [self showLoadErrorView];
+    
 }
 
 
@@ -155,8 +166,20 @@
 }
 
 -(void)refreshClicked{
-     [self.webview reload];
+    [self.webview reload];
+    self.errorShowView.hidden = YES;
 }
+
+-(void)errorRefreshClick{
+    [self.webview reload];
+    self.errorShowView.hidden = YES;
+}
+
+//当加载网页失败后 展示加载失败界面
+- (void)showLoadErrorView{
+    self.errorShowView.hidden = NO;
+}
+
 
 #pragma mark - lazy load
 -(UIBarButtonItem *)customBackBarItem{
@@ -225,6 +248,56 @@
         _progressGetView.backgroundColor = LMRGBAColor(67, 138, 230, 1);
     }
     return _progressGetView;
+}
+
+-(UIView *)errorShowView{
+    
+    if (!_errorShowView) {
+        
+        _errorShowView = [[UIView alloc]init];
+        _errorShowView.backgroundColor = [UIColor whiteColor];
+        _errorShowView.frame = CGRectMake(0, NAV_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT-NAV_HEIGHT);
+        
+        UIButton * refreshButton = [[UIButton alloc]init];
+        refreshButton.bounds = CGRectMake(0, 0, 120, 44);
+        refreshButton.layer.masksToBounds = YES;
+        refreshButton.layer.cornerRadius = 22;
+        refreshButton.layer.borderColor = [UIColor blackColor].CGColor;
+        refreshButton.layer.borderWidth = 1;
+        [refreshButton setTitle:@"刷新" forState:UIControlStateNormal];
+        [refreshButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        refreshButton.titleLabel.font = [UIFont boldSystemFontOfSize:17];
+        [refreshButton addTarget:self action:@selector(errorRefreshClick) forControlEvents:UIControlEventTouchUpInside];
+        [_errorShowView addSubview:refreshButton];
+        
+        refreshButton.center = CGPointMake(SCREEN_WIDTH/2, SCREEN_HEIGHT/2-NAV_HEIGHT+22+80);
+        
+        
+        UILabel * showLabel = [[UILabel alloc]init];
+        showLabel.numberOfLines = 0;
+        showLabel.font = [UIFont systemFontOfSize:16];
+        showLabel.textColor = LMRGBAColor(0, 0, 0, 0.48);
+        showLabel.text =@"当前网络状态不佳，您可以尝试点击下方按钮刷新重试O~";
+        showLabel.bounds = CGRectMake(0, 0, SCREEN_WIDTH-88, 1);
+        [showLabel sizeToFit];
+        [_errorShowView addSubview:showLabel];
+        
+        showLabel.frame =CGRectMake(44, CGRectGetMinY(refreshButton.frame)-60-showLabel.bounds.size.height, showLabel.bounds.size.width, showLabel.bounds.size.height);
+  
+        UILabel * errorLabel = [[UILabel alloc]init];
+        errorLabel.font = [UIFont boldSystemFontOfSize:18];
+        errorLabel.textColor = LMRGBAColor(0, 0, 0, 0.8);
+        errorLabel.text =@"很抱歉，加载失败了";
+        errorLabel.textAlignment = NSTextAlignmentCenter;
+        [_errorShowView addSubview:errorLabel];
+        
+        errorLabel.frame =CGRectMake(0, CGRectGetMinY(showLabel.frame)-20-18, SCREEN_WIDTH, 18);
+        
+        
+        _errorShowView.hidden = YES;
+        
+    }
+    return _errorShowView;
 }
 
 @end
